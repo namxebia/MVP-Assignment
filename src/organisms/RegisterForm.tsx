@@ -6,6 +6,7 @@ import TextInput from '../molecules/TextInput';
 type LoginForm = {
   username: string;
   password: string;
+  confirmPassword: string;
 };
 export default () => {
   const {
@@ -35,8 +36,14 @@ export default () => {
       <TextInput
         name={'password'}
         control={control}
-        secureTextEntry={false}
+        secureTextEntry={true}
         placeholder={'Enter password'}
+      />
+      <TextInput
+        name={'confirmpassword'}
+        control={control}
+        secureTextEntry={true}
+        placeholder={'Enter confirm password'}
       />
       {errors.password && <Text>This is require</Text>}
 

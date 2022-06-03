@@ -1,26 +1,26 @@
+import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Logo from '../atoms/Logo';
 import Background from '../organisms/Background';
 import Header from '../organisms/Header';
-import LoginForm from '../organisms/LoginForm';
-import {NavigationProp} from '@react-navigation/native';
+import RegisterForm from '../organisms/RegisterForm';
 export default ({navigation}: {navigation: NavigationProp<any>}) => {
   return (
     <Background>
       <View style={styles.logo}>
         <Logo />
       </View>
-      <Header>Welcome Back</Header>
+      <Header>Register New Account</Header>
       <View style={styles.loginForm}>
-        <LoginForm />
+        <RegisterForm />
       </View>
       <Text
         style={styles.navigationText}
         onPress={() => {
-          navigation.navigate('Register');
+          navigation.goBack();
         }}>
-        Reister
+        Go to Login
       </Text>
     </Background>
   );

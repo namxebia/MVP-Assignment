@@ -12,7 +12,12 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 import Splash from './src/organisms/Splash';
 import Login from './src/screens/Login';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import TextInput from './src/molecules/TextInput';
+import Register from './src/screens/Register';
 
+const Stack = createNativeStackNavigator();
 const App = () => {
   // const isDarkMode = useColorScheme() === 'dark';
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -29,19 +34,33 @@ const App = () => {
   // };
 
   return (
-    <SafeAreaView>
+    <NavigationContainer>
       {isLoading ? (
         <Splash />
       ) : (
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <View style={styles.content}>
-            <Login />
-          </View>
-        </ScrollView>
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+        </Stack.Navigator>
       )}
-    </SafeAreaView>
+      {/* <SafeAreaView>
+        {isLoading ? (
+          <Splash />
+        ) : (
+          // <ScrollView
+          //   contentInsetAdjustmentBehavior="automatic"
+          //   style={styles.scrollView}>
+          //   <View style={styles.content}>
+         
+          //   </View>
+          // </ScrollView>
+        )}
+      </SafeAreaView> */}
+    </NavigationContainer>
   );
 };
 
