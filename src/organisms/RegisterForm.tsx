@@ -2,12 +2,28 @@ import React from 'react';
 import {useForm} from 'react-hook-form';
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import TextInput from '../molecules/TextInput';
+import {yupResolver} from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+// import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type LoginForm = {
   username: string;
   password: string;
   confirmPassword: string;
 };
+
+const schema = yup.object({
+  username: yup.string().email().required(),
+  password: yup
+    .string()
+    .required()
+    .min(4, 'Password length must be greater than 4'),
+  confirmPassword: yup
+    .string()
+    .required()
+    .oneOf([yup.ref('password')], 'Password must match'),
+});
 export default () => {
   const {
     control,
@@ -18,10 +34,17 @@ export default () => {
       username: '',
       password: '',
     },
+    resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: LoginForm) => {
-    console.log('data', data);
+  const onSubmit = async (data: LoginForm) => {
+    try {
+      console.log('data', data);
+      await AsyncStorage.setItem('@username', data.username);
+      await AsyncStorage.setItem('@password', data.password);
+    } catch (error) {
+      console.log('caught error' + error);
+    }
   };
   return (
     <View style={styles.fullWidth}>
@@ -30,22 +53,27 @@ export default () => {
         control={control}
         secureTextEntry={false}
         placeholder={'Enter username'}
+        error={errors.username}
       />
-      {errors.username && <Text>This is require</Text>}
+      {errors.username && <Text>{errors.username?.message}</Text>}
 
       <TextInput
         name={'password'}
         control={control}
         secureTextEntry={true}
         placeholder={'Enter password'}
+        error={errors.password}
       />
+      {errors.password && <Text>{errors.password?.message}</Text>}
+
       <TextInput
-        name={'confirmpassword'}
+        name={'confirmPassword'}
         control={control}
         secureTextEntry={true}
         placeholder={'Enter confirm password'}
+        error={errors.confirmPassword}
       />
-      {errors.password && <Text>This is require</Text>}
+      {errors.confirmPassword && <Text>{errors.confirmPassword?.message}</Text>}
 
       <TouchableHighlight
         style={styles.buttonSubmit}

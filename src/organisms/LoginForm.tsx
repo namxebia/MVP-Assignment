@@ -2,11 +2,25 @@ import React from 'react';
 import {useForm} from 'react-hook-form';
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import TextInput from '../molecules/TextInput';
+import * as yup from 'yup';
+import {yupResolver} from '@hookform/resolvers/yup';
+// import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type LoginForm = {
   username: string;
   password: string;
 };
+
+const schema = yup
+  .object({
+    username: yup.string().email('Email format is invalidate').required(),
+    password: yup
+      .string()
+      .min(4, 'Password length must be greater than 4')
+      .required(),
+  })
+  .required();
 export default () => {
   const {
     control,
@@ -17,11 +31,22 @@ export default () => {
       username: '',
       password: '',
     },
+    resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: LoginForm) => {
-    console.log('data', data);
+  const onSubmit = async (data: LoginForm) => {
+    try {
+      const username = await AsyncStorage.getItem('@username');
+      const password = await AsyncStorage.getItem('@password');
+
+      if (username === data.username && password === data.password) {
+        console.log('SUCCESS');
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
   };
+
   return (
     <View style={styles.fullWidth}>
       <TextInput
@@ -29,16 +54,18 @@ export default () => {
         control={control}
         secureTextEntry={false}
         placeholder={'Enter username'}
+        error={errors.username}
       />
-      {errors.username && <Text>This is require</Text>}
+      {errors.username && <Text>{errors.username?.message}</Text>}
 
       <TextInput
         name={'password'}
         control={control}
-        secureTextEntry={false}
+        secureTextEntry={true}
         placeholder={'Enter password'}
+        error={errors.password}
       />
-      {errors.password && <Text>This is require</Text>}
+      {errors.password && <Text>{errors.password?.message}</Text>}
 
       <TouchableHighlight
         style={styles.buttonSubmit}

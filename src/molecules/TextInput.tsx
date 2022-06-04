@@ -1,13 +1,20 @@
 import React from 'react';
-import {Controller} from 'react-hook-form';
+import {Controller, FieldError} from 'react-hook-form';
 import {StyleSheet, TextInput} from 'react-native';
 type Props = {
   secureTextEntry: boolean;
   placeholder: string;
   control: any;
   name: string;
+  error?: FieldError;
 };
-export default ({secureTextEntry, placeholder, control, name}: Props) => {
+export default ({
+  secureTextEntry,
+  placeholder,
+  control,
+  name,
+  error,
+}: Props) => {
   return (
     <Controller
       name={name}
@@ -16,12 +23,13 @@ export default ({secureTextEntry, placeholder, control, name}: Props) => {
       render={({field: {onChange, onBlur, value}}) => {
         return (
           <TextInput
-            style={styles.textInput}
+            style={[styles.textInput, error ? styles.error : {}]}
             secureTextEntry={secureTextEntry}
             onChangeText={onChange}
             onBlur={onBlur}
             value={value}
             placeholder={placeholder}
+            // placeholderTextColor={error ? 'red' : ''}
           />
         );
       }}
@@ -41,5 +49,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
 
     marginBottom: 8,
+  },
+  error: {
+    color: 'red',
   },
 });
