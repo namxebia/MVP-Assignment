@@ -5,45 +5,35 @@ import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import * as yup from 'yup';
 import TextInput from '../molecules/TextInput';
 
-type RegisterForm = {
-  username: string;
-  password: string;
-  confirmPassword: string;
+type MPINForm = {
+  mpin: string;
+  confirmMpin: string;
 };
 
 const schema = yup.object({
-  username: yup.string().email().required(),
-  password: yup
+  mpin: yup.string().required().min(4, 'MPIN length must be greater than 4'),
+  confirmMpin: yup
     .string()
     .required()
-    .min(4, 'Password length must be greater than 4'),
-  confirmPassword: yup
-    .string()
-    .required()
-    .oneOf([yup.ref('password')], 'Password must match'),
+    .oneOf([yup.ref('mpin')], 'MPIN must match'),
 });
-export default ({
-  handleRegister,
-}: {
-  handleRegister: (data: {username: string}) => void;
-}) => {
+
+export default ({handleMPIN}: {handleMPIN: (data: MPINForm) => void}) => {
   const {
     control,
     handleSubmit,
     formState: {errors},
-  } = useForm<RegisterForm>({
+  } = useForm<MPINForm>({
     defaultValues: {
-      username: '',
-      password: '',
-      confirmPassword: '',
+      mpin: '',
+      confirmMpin: '',
     },
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: RegisterForm) => {
+  const onSubmit = async (data: MPINForm) => {
     try {
-      console.log('data', data);
-      handleRegister({username: data.username});
+      handleMPIN(data);
     } catch (error) {
       console.log('caught error' + error);
     }
@@ -51,31 +41,22 @@ export default ({
   return (
     <View style={styles.fullWidth}>
       <TextInput
-        name={'username'}
+        name={'mpin'}
         control={control}
         secureTextEntry={false}
-        placeholder={'Enter username'}
-        error={errors.username}
+        placeholder={'Enter MPIN'}
+        error={errors.mpin}
       />
-      {errors.username && <Text>{errors.username?.message}</Text>}
+      {errors.mpin && <Text>{errors.mpin?.message}</Text>}
 
       <TextInput
-        name={'password'}
+        name={'confirmMpin'}
         control={control}
-        secureTextEntry={true}
-        placeholder={'Enter password'}
-        error={errors.password}
+        secureTextEntry={false}
+        placeholder={'Enter confirm MPIN'}
+        error={errors.confirmMpin}
       />
-      {errors.password && <Text>{errors.password?.message}</Text>}
-
-      <TextInput
-        name={'confirmPassword'}
-        control={control}
-        secureTextEntry={true}
-        placeholder={'Enter confirm password'}
-        error={errors.confirmPassword}
-      />
-      {errors.confirmPassword && <Text>{errors.confirmPassword?.message}</Text>}
+      {errors.confirmMpin && <Text>{errors.confirmMpin?.message}</Text>}
 
       <TouchableHighlight
         style={styles.buttonSubmit}

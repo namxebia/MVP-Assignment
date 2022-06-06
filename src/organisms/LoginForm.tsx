@@ -1,46 +1,42 @@
-import React from 'react';
+import {yupResolver} from '@hookform/resolvers/yup';
+import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
-import TextInput from '../molecules/TextInput';
+import {useSelector} from 'react-redux';
 import * as yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup';
-// import {AsyncStorage} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import TextInput from '../molecules/TextInput';
+import {getMpin} from '../slices/authSlice';
 type LoginForm = {
-  username: string;
-  password: string;
+  mpin: string;
 };
 
 const schema = yup
   .object({
-    username: yup.string().email('Email format is invalidate').required(),
-    password: yup
-      .string()
-      .min(4, 'Password length must be greater than 4')
-      .required(),
+    mpin: yup.string().required('MPIN is a required fields'),
   })
   .required();
-export default () => {
+
+export default ({handleLogin}: {handleLogin: () => void}) => {
+  const mpin = useSelector(getMpin);
+  const [mpinError, setMpinError] = useState('');
+
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm<LoginForm>({
     defaultValues: {
-      username: '',
-      password: '',
+      mpin: '',
     },
     resolver: yupResolver(schema),
   });
 
   const onSubmit = async (data: LoginForm) => {
     try {
-      const username = await AsyncStorage.getItem('@username');
-      const password = await AsyncStorage.getItem('@password');
-
-      if (username === data.username && password === data.password) {
-        console.log('SUCCESS');
+      if (mpin === data.mpin) {
+        handleLogin();
+      } else {
+        setMpinError('Wrong MPIN.Please try again');
       }
     } catch (error) {
       console.log('error', error);
@@ -50,23 +46,14 @@ export default () => {
   return (
     <View style={styles.fullWidth}>
       <TextInput
-        name={'username'}
+        name={'mpin'}
         control={control}
         secureTextEntry={false}
-        placeholder={'Enter username'}
-        error={errors.username}
+        placeholder={'Enter MPIN'}
+        error={errors.mpin}
       />
-      {errors.username && <Text>{errors.username?.message}</Text>}
-
-      <TextInput
-        name={'password'}
-        control={control}
-        secureTextEntry={true}
-        placeholder={'Enter password'}
-        error={errors.password}
-      />
-      {errors.password && <Text>{errors.password?.message}</Text>}
-
+      {errors.mpin && <Text>{errors.mpin?.message}</Text>}
+      {mpinError !== '' && <Text>{mpinError}</Text>}
       <TouchableHighlight
         style={styles.buttonSubmit}
         onPress={handleSubmit(onSubmit)}>

@@ -1,20 +1,25 @@
 import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {useDispatch} from 'react-redux';
 import Logo from '../atoms/Logo';
 import Background from '../organisms/Background';
 import Header from '../organisms/Header';
-import RegisterForm from '../organisms/RegisterForm';
-import {setUsername} from '../slices/authSlice';
+import MPINForm from '../organisms/MPINForm';
+import {getDeviceId} from 'react-native-device-info';
+import {useDispatch} from 'react-redux';
+import {setDeviceId, setMpin} from '../slices/authSlice';
+
 export default ({navigation}: {navigation: NavigationProp<any>}) => {
   const dispatch = useDispatch();
 
-  const handleRegister = (data: {username: string}) => {
-    dispatch(setUsername(data.username));
-    navigation.navigate('MPIN');
-  };
+  const handleMPIN = (data: {mpin: string; confirmMpin: string}) => {
+    const deviceId = getDeviceId();
 
+    dispatch(setDeviceId(deviceId));
+    dispatch(setMpin(data.mpin));
+
+    navigation.navigate('Login');
+  };
   return (
     <Background>
       <View style={styles.logo}>
@@ -22,7 +27,7 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
       </View>
       <Header>Register New Account</Header>
       <View style={styles.loginForm}>
-        <RegisterForm handleRegister={handleRegister} />
+        <MPINForm handleMPIN={handleMPIN} />
       </View>
       <Text
         style={styles.navigationText}
@@ -34,7 +39,6 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
     </Background>
   );
 };
-
 const styles = StyleSheet.create({
   logo: {
     width: '100%',
@@ -48,11 +52,5 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     fontWeight: 'bold',
     fontSize: 18,
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
   },
 });

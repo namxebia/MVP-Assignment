@@ -29,6 +29,7 @@ export default ({
             onBlur={onBlur}
             value={value}
             placeholder={placeholder}
+            textContentType={'oneTimeCode'}
             // placeholderTextColor={error ? 'red' : ''}
           />
         );

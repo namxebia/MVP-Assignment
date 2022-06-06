@@ -1,11 +1,16 @@
+import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Logo from '../atoms/Logo';
 import Background from '../organisms/Background';
 import Header from '../organisms/Header';
 import LoginForm from '../organisms/LoginForm';
-import {NavigationProp} from '@react-navigation/native';
+
 export default ({navigation}: {navigation: NavigationProp<any>}) => {
+  const handleLogin = () => {
+    navigation.navigate('DashBoard');
+  };
+
   return (
     <Background>
       <View style={styles.logo}>
@@ -13,7 +18,7 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
       </View>
       <Header>Welcome Back</Header>
       <View style={styles.loginForm}>
-        <LoginForm />
+        <LoginForm handleLogin={handleLogin} />
       </View>
       <Text
         style={styles.navigationText}

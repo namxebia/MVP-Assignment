@@ -8,19 +8,24 @@
  * @format
  */
 
-import React, {useEffect, useState} from 'react';
-import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
-import Splash from './src/organisms/Splash';
-import Login from './src/screens/Login';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import TextInput from './src/molecules/TextInput';
+import React, {useEffect, useState} from 'react';
+import {Provider, useSelector} from 'react-redux';
+import {persistStore} from 'redux-persist';
+import {PersistGate} from 'redux-persist/integration/react';
+import {store} from './src/app/store';
+import Splash from './src/organisms/Splash';
+import DashBoard from './src/screens/DashBoard';
+import Login from './src/screens/Login';
+import MPIN from './src/screens/MPIN';
 import Register from './src/screens/Register';
+import {getDeviceId} from './src/slices/authSlice';
 
 const Stack = createNativeStackNavigator();
 const App = () => {
-  // const isDarkMode = useColorScheme() === 'dark';
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const deviceId = useSelector(getDeviceId);
 
   useEffect(() => {
     let myTimeout = setTimeout(() => {
@@ -28,10 +33,6 @@ const App = () => {
     }, 3000);
     return () => clearTimeout(myTimeout);
   }, []);
-  // const backgroundStyle = {
-  //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  //   height: '100%',
-  // };
 
   return (
     <NavigationContainer>
@@ -39,51 +40,29 @@ const App = () => {
         <Splash />
       ) : (
         <Stack.Navigator
-          initialRouteName="Login"
+          initialRouteName={deviceId ? 'Login' : 'Register'}
           screenOptions={{
             headerShown: false,
           }}>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="MPIN" component={MPIN} />
+          <Stack.Screen name="DashBoard" component={DashBoard} />
         </Stack.Navigator>
       )}
-      {/* <SafeAreaView>
-        {isLoading ? (
-          <Splash />
-        ) : (
-          // <ScrollView
-          //   contentInsetAdjustmentBehavior="automatic"
-          //   style={styles.scrollView}>
-          //   <View style={styles.content}>
-         
-          //   </View>
-          // </ScrollView>
-        )}
-      </SafeAreaView> */}
     </NavigationContainer>
   );
 };
 
-const styles = StyleSheet.create({
-  scrollView: {},
-  content: {},
+const AppWrapper = () => {
+  const persisor = persistStore(store);
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persisor}>
+        <App />
+      </PersistGate>
+    </Provider>
+  );
+};
 
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+export default AppWrapper;
