@@ -1,16 +1,17 @@
 import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import Logo from '../atoms/Logo';
-import Background from '../organisms/Background';
-import Header from '../organisms/Header';
-import MPINForm from '../organisms/MPINForm';
+import {StyleSheet, View} from 'react-native';
 import {getDeviceId} from 'react-native-device-info';
-import {useDispatch} from 'react-redux';
+import {useAppDispatch} from '../app/hooks';
+import Logo from '../atoms/Logo';
+import TextNavigation from '../atoms/TextNavigation';
+import Header from '../atoms/Title';
+import Background from '../organisms/Background';
+import MPINForm from '../organisms/MPINForm';
 import {setDeviceId, setMpin} from '../slices/authSlice';
 
 export default ({navigation}: {navigation: NavigationProp<any>}) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleMPIN = (data: {mpin: string; confirmMpin: string}) => {
     const deviceId = getDeviceId();
@@ -29,13 +30,12 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
       <View style={styles.loginForm}>
         <MPINForm handleMPIN={handleMPIN} />
       </View>
-      <Text
-        style={styles.navigationText}
-        onPress={() => {
+      <TextNavigation
+        onNavigation={() => {
           navigation.goBack();
         }}>
         Go to Login
-      </Text>
+      </TextNavigation>
     </Background>
   );
 };
@@ -47,10 +47,5 @@ const styles = StyleSheet.create({
   },
   loginForm: {
     width: '100%',
-  },
-  navigationText: {
-    marginVertical: 8,
-    fontWeight: 'bold',
-    fontSize: 18,
   },
 });

@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
 
-    backgroundColor: 'pink',
+    backgroundColor: '#FAF0D7',
     justifySelf: 'flex-start',
   },
 

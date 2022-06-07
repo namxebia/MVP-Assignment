@@ -1,13 +1,14 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, Text} from 'react-native';
 import Row from '../atoms/Row';
-import {Invoice} from '../screens/DashBoard';
+import {Invoice} from '../models';
 type Props = {
   invoiceList: Invoice[];
+  isLoading: boolean;
 };
-export default ({invoiceList}: Props) => {
+export default ({invoiceList, isLoading}: Props) => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Row
         invoice={{
           number: 'Number',
@@ -16,10 +17,14 @@ export default ({invoiceList}: Props) => {
           amountDetails: 'Amount Details',
         }}
       />
-      {invoiceList.map((invoice: Invoice) => {
-        return <Row key={invoice.number} invoice={invoice} />;
-      })}
-    </View>
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        invoiceList.map((invoice: Invoice) => {
+          return <Row key={invoice.number} invoice={invoice} />;
+        })
+      )}
+    </ScrollView>
   );
 };
 
@@ -33,6 +38,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     padding: 8,
-    backgroundColor: 'pink',
+    backgroundColor: '#FAF0D7',
   },
 });

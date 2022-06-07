@@ -11,7 +11,6 @@ type Props = {
 };
 
 export default ({children, navigation, name}: Props) => {
-  console.log('navigation', navigation);
   return (
     <SafeAreaView style={styles.safeArea}>
       <View>
@@ -29,7 +28,7 @@ export default ({children, navigation, name}: Props) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: '#2F8F9D',
   },
   background: {
     flex: 1,

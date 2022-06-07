@@ -1,8 +1,10 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
 import {useForm} from 'react-hook-form';
-import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import * as yup from 'yup';
+import ButtonSubmit from '../atoms/ButtonSubmit';
+import TextError from '../atoms/TextError';
 import TextInput from '../molecules/TextInput';
 
 type RegisterForm = {
@@ -42,12 +44,12 @@ export default ({
 
   const onSubmit = async (data: RegisterForm) => {
     try {
-      console.log('data', data);
       handleRegister({username: data.username});
     } catch (error) {
       console.log('caught error' + error);
     }
   };
+
   return (
     <View style={styles.fullWidth}>
       <TextInput
@@ -57,7 +59,7 @@ export default ({
         placeholder={'Enter username'}
         error={errors.username}
       />
-      {errors.username && <Text>{errors.username?.message}</Text>}
+      {errors.username && <TextError>{errors.username?.message}</TextError>}
 
       <TextInput
         name={'password'}
@@ -66,7 +68,7 @@ export default ({
         placeholder={'Enter password'}
         error={errors.password}
       />
-      {errors.password && <Text>{errors.password?.message}</Text>}
+      {errors.password && <TextError>{errors.password?.message}</TextError>}
 
       <TextInput
         name={'confirmPassword'}
@@ -75,13 +77,11 @@ export default ({
         placeholder={'Enter confirm password'}
         error={errors.confirmPassword}
       />
-      {errors.confirmPassword && <Text>{errors.confirmPassword?.message}</Text>}
+      {errors.confirmPassword && (
+        <TextError>{errors.confirmPassword?.message}</TextError>
+      )}
 
-      <TouchableHighlight
-        style={styles.buttonSubmit}
-        onPress={handleSubmit(onSubmit)}>
-        <Text style={styles.textSubmit}>Submit</Text>
-      </TouchableHighlight>
+      <ButtonSubmit handleSubmit={handleSubmit(onSubmit)} title={'Submit'} />
     </View>
   );
 };
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
-    backgroundColor: 'pink',
+    backgroundColor: '#8CC0DE',
 
     borderColor: 'black',
     borderWidth: 2,

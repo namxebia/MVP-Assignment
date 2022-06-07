@@ -12,9 +12,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Provider, useSelector} from 'react-redux';
+import {Provider} from 'react-redux';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
+import {useAppSelector} from './src/app/hooks';
 import {store} from './src/app/store';
 import Splash from './src/organisms/Splash';
 import DashBoard from './src/screens/DashBoard';
@@ -26,7 +27,7 @@ import {getDeviceId} from './src/slices/authSlice';
 const Stack = createNativeStackNavigator();
 const App = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const deviceId = useSelector(getDeviceId);
+  const deviceId = useAppSelector(getDeviceId);
 
   useEffect(() => {
     let myTimeout = setTimeout(() => {

@@ -1,32 +1,31 @@
 import {NavigationProp} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import invoiceApi from '../api/invoiceApi';
+import {useAppSelector} from '../app/hooks';
+import {Invoice} from '../models';
 import DashBoardHeader from '../molecules/DashBoardHeader';
 import InvoiceList from '../molecules/InvoiceList';
 import Background from '../organisms/Background';
 import {getLasttimeLogin, getUsername} from '../slices/authSlice';
 
-export type Invoice = {
-  number: string;
-  date: string;
-  customerName: string;
-  amountDetails: string;
-};
-
 export default ({navigation}: {navigation: NavigationProp<any>}) => {
-  const username = useSelector(getUsername);
-  const lasttimeLogin = useSelector(getLasttimeLogin);
+  const username = useAppSelector(getUsername);
+  const lasttimeLogin = useAppSelector(getLasttimeLogin);
 
   const [invoiceList, setInvoiceList] = useState<Invoice[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
-    setInvoiceList([
-      {
-        number: '1',
-        date: 'xxxx',
-        customerName: 'A',
-        amountDetails: '1000',
-      },
-    ]);
+    (async () => {
+      try {
+        setIsLoading(true);
+        const response = await invoiceApi.getAll();
+        console.log('response', response);
+        setInvoiceList(response.data);
+      } catch (error) {
+        console.log('error', error);
+      }
+      setIsLoading(false);
+    })();
   }, []);
   return (
     <Background navigation={navigation} name={'DashBoard'}>
@@ -34,7 +33,7 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
         username={username || ''}
         lasttimeLogin={lasttimeLogin}
       />
-      <InvoiceList invoiceList={invoiceList} />
+      <InvoiceList isLoading={isLoading} invoiceList={invoiceList} />
     </Background>
   );
 };

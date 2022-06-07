@@ -1,8 +1,10 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
 import {useForm} from 'react-hook-form';
-import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import * as yup from 'yup';
+import ButtonSubmit from '../atoms/ButtonSubmit';
+import TextError from '../atoms/TextError';
 import TextInput from '../molecules/TextInput';
 
 type MPINForm = {
@@ -47,7 +49,7 @@ export default ({handleMPIN}: {handleMPIN: (data: MPINForm) => void}) => {
         placeholder={'Enter MPIN'}
         error={errors.mpin}
       />
-      {errors.mpin && <Text>{errors.mpin?.message}</Text>}
+      {errors.mpin && <TextError>{errors.mpin?.message}</TextError>}
 
       <TextInput
         name={'confirmMpin'}
@@ -56,13 +58,10 @@ export default ({handleMPIN}: {handleMPIN: (data: MPINForm) => void}) => {
         placeholder={'Enter confirm MPIN'}
         error={errors.confirmMpin}
       />
-      {errors.confirmMpin && <Text>{errors.confirmMpin?.message}</Text>}
-
-      <TouchableHighlight
-        style={styles.buttonSubmit}
-        onPress={handleSubmit(onSubmit)}>
-        <Text style={styles.textSubmit}>Submit</Text>
-      </TouchableHighlight>
+      {errors.confirmMpin && (
+        <TextError>{errors.confirmMpin?.message}</TextError>
+      )}
+      <ButtonSubmit handleSubmit={handleSubmit(onSubmit)} title={'Submit'} />
     </View>
   );
 };
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
-    backgroundColor: 'pink',
+    backgroundColor: '#FAF0D7',
 
     borderColor: 'black',
     borderWidth: 2,

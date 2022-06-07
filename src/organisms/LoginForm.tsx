@@ -1,9 +1,11 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
-import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
-import {useSelector} from 'react-redux';
+import {StyleSheet, View} from 'react-native';
 import * as yup from 'yup';
+import {useAppSelector} from '../app/hooks';
+import ButtonSubmit from '../atoms/ButtonSubmit';
+import TextError from '../atoms/TextError';
 import TextInput from '../molecules/TextInput';
 import {getMpin} from '../slices/authSlice';
 type LoginForm = {
@@ -17,7 +19,7 @@ const schema = yup
   .required();
 
 export default ({handleLogin}: {handleLogin: () => void}) => {
-  const mpin = useSelector(getMpin);
+  const mpin = useAppSelector(getMpin);
   const [mpinError, setMpinError] = useState('');
 
   const {
@@ -52,13 +54,10 @@ export default ({handleLogin}: {handleLogin: () => void}) => {
         placeholder={'Enter MPIN'}
         error={errors.mpin}
       />
-      {errors.mpin && <Text>{errors.mpin?.message}</Text>}
-      {mpinError !== '' && <Text>{mpinError}</Text>}
-      <TouchableHighlight
-        style={styles.buttonSubmit}
-        onPress={handleSubmit(onSubmit)}>
-        <Text style={styles.textSubmit}>Submit</Text>
-      </TouchableHighlight>
+      {errors.mpin && <TextError>{errors.mpin?.message}</TextError>}
+      {mpinError !== '' && <TextError>{mpinError}</TextError>}
+
+      <ButtonSubmit handleSubmit={handleSubmit(onSubmit)} title={'Submit'} />
     </View>
   );
 };
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
-    backgroundColor: 'pink',
+    backgroundColor: '#FAF0D7',
 
     borderColor: 'black',
     borderWidth: 2,

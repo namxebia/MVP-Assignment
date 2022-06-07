@@ -1,14 +1,15 @@
 import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {StyleSheet, View} from 'react-native';
+import {useAppDispatch} from '../app/hooks';
 import Logo from '../atoms/Logo';
+import TextNavigation from '../atoms/TextNavigation';
+import Header from '../atoms/Title';
 import Background from '../organisms/Background';
-import Header from '../organisms/Header';
 import RegisterForm from '../organisms/RegisterForm';
 import {setUsername} from '../slices/authSlice';
 export default ({navigation}: {navigation: NavigationProp<any>}) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleRegister = (data: {username: string}) => {
     dispatch(setUsername(data.username));
@@ -24,13 +25,12 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
       <View style={styles.loginForm}>
         <RegisterForm handleRegister={handleRegister} />
       </View>
-      <Text
-        style={styles.navigationText}
-        onPress={() => {
+      <TextNavigation
+        onNavigation={() => {
           navigation.goBack();
         }}>
         Go to Login
-      </Text>
+      </TextNavigation>
     </Background>
   );
 };
@@ -43,11 +43,6 @@ const styles = StyleSheet.create({
   },
   loginForm: {
     width: '100%',
-  },
-  navigationText: {
-    marginVertical: 8,
-    fontWeight: 'bold',
-    fontSize: 18,
   },
   input: {
     height: 40,

@@ -1,15 +1,16 @@
 import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {StyleSheet, View} from 'react-native';
+import {useAppDispatch} from '../app/hooks';
 import Logo from '../atoms/Logo';
+import TextNavigation from '../atoms/TextNavigation';
+import Title from '../atoms/Title';
 import Background from '../organisms/Background';
-import Header from '../organisms/Header';
 import LoginForm from '../organisms/LoginForm';
 import {setLastimeLogin} from '../slices/authSlice';
 
 export default ({navigation}: {navigation: NavigationProp<any>}) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleLogin = () => {
     var d = new Date();
@@ -36,17 +37,16 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
       <View style={styles.logo}>
         <Logo />
       </View>
-      <Header>Welcome Back</Header>
+      <Title>Welcome Back</Title>
       <View style={styles.loginForm}>
         <LoginForm handleLogin={handleLogin} />
       </View>
-      <Text
-        style={styles.navigationText}
-        onPress={() => {
+      <TextNavigation
+        onNavigation={() => {
           navigation.navigate('Register');
         }}>
         Reister
-      </Text>
+      </TextNavigation>
     </Background>
   );
 };

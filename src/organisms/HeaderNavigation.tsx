@@ -35,19 +35,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 8,
 
-    backgroundColor: 'green',
+    backgroundColor: '#3BACB6',
   },
 
   headerTitle: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: 'black',
   },
   btnLogout: {
     borderColor: 'black',
     borderWidth: 2,
     borderRadius: 10,
     paddingHorizontal: 8,
-    backgroundColor: 'pink',
+    backgroundColor: '#B3E8E5',
 
     alignSelf: 'center',
   },
