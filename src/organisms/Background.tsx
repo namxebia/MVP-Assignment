@@ -1,18 +1,22 @@
+import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
-import {
-  KeyboardAvoidingView,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {KeyboardAvoidingView, StyleSheet, View} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import HeaderNavigation from './HeaderNavigation';
 
 type Props = {
   children: React.ReactNode;
+  navigation?: NavigationProp<any>;
+  name: string;
 };
 
-export default ({children}: Props) => {
+export default ({children, navigation, name}: Props) => {
+  console.log('navigation', navigation);
   return (
     <SafeAreaView style={styles.safeArea}>
+      <View>
+        <HeaderNavigation title={name} navigation={navigation} />
+      </View>
       <View style={styles.background}>
         <KeyboardAvoidingView style={styles.container}>
           {children}

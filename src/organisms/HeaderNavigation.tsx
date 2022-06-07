@@ -1,16 +1,15 @@
-import {ParamListBase} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 type Props = {
   title: string;
-  navigation: NativeStackNavigationProp<ParamListBase, string, undefined>;
+  navigation?: NavigationProp<any>;
 };
 
 export default (props: Props) => {
   const handleLogout = () => {
-    props.navigation.reset({
+    props.navigation?.reset({
       index: 0,
       routes: [{name: 'Login'}],
     });

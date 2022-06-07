@@ -21,7 +21,7 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
     navigation.navigate('Login');
   };
   return (
-    <Background>
+    <Background name="MPIN">
       <View style={styles.logo}>
         <Logo />
       </View>

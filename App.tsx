@@ -9,16 +9,13 @@
  */
 
 import {NavigationContainer} from '@react-navigation/native';
-import {
-  createNativeStackNavigator,
-  NativeStackHeaderProps,
-} from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider, useSelector} from 'react-redux';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 import {store} from './src/app/store';
-import HeaderNavigation from './src/organisms/HeaderNavigation';
 import Splash from './src/organisms/Splash';
 import DashBoard from './src/screens/DashBoard';
 import Login from './src/screens/Login';
@@ -39,26 +36,24 @@ const App = () => {
   }, []);
 
   return (
-    <NavigationContainer>
-      {isLoading ? (
-        <Splash />
-      ) : (
-        <Stack.Navigator
-          initialRouteName={deviceId ? 'Login' : 'Register'}
-          screenOptions={{
-            headerShown: true,
-            headerTransparent: true,
-            header: ({route, navigation}: NativeStackHeaderProps) => (
-              <HeaderNavigation title={route.name} navigation={navigation} />
-            ),
-          }}>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="MPIN" component={MPIN} />
-          <Stack.Screen name="DashBoard" component={DashBoard} />
-        </Stack.Navigator>
-      )}
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        {isLoading ? (
+          <Splash />
+        ) : (
+          <Stack.Navigator
+            initialRouteName={deviceId ? 'Login' : 'Register'}
+            screenOptions={{
+              headerShown: false,
+            }}>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen name="MPIN" component={MPIN} />
+            <Stack.Screen name="DashBoard" component={DashBoard} />
+          </Stack.Navigator>
+        )}
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };
 

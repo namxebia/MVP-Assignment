@@ -32,7 +32,7 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
   };
 
   return (
-    <Background>
+    <Background name={'Login'}>
       <View style={styles.logo}>
         <Logo />
       </View>

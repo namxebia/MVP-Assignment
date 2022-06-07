@@ -16,7 +16,7 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
   };
 
   return (
-    <Background>
+    <Background name={'Register'}>
       <View style={styles.logo}>
         <Logo />
       </View>

@@ -1,3 +1,4 @@
+import {NavigationProp} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import DashBoardHeader from '../molecules/DashBoardHeader';
@@ -12,7 +13,7 @@ export type Invoice = {
   amountDetails: string;
 };
 
-export default () => {
+export default ({navigation}: {navigation: NavigationProp<any>}) => {
   const username = useSelector(getUsername);
   const lasttimeLogin = useSelector(getLasttimeLogin);
 
@@ -28,7 +29,7 @@ export default () => {
     ]);
   }, []);
   return (
-    <Background>
+    <Background navigation={navigation} name={'DashBoard'}>
       <DashBoardHeader
         username={username || ''}
         lasttimeLogin={lasttimeLogin}
