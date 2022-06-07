@@ -1,13 +1,33 @@
 import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import Logo from '../atoms/Logo';
 import Background from '../organisms/Background';
 import Header from '../organisms/Header';
 import LoginForm from '../organisms/LoginForm';
+import {setLastimeLogin} from '../slices/authSlice';
 
 export default ({navigation}: {navigation: NavigationProp<any>}) => {
+  const dispatch = useDispatch();
+
   const handleLogin = () => {
+    var d = new Date();
+
+    var datestring =
+      d.getDate() +
+      '-' +
+      (d.getMonth() + 1) +
+      '-' +
+      d.getFullYear() +
+      ' ' +
+      d.getHours() +
+      ':' +
+      d.getMinutes() +
+      ':' +
+      d.getSeconds();
+
+    dispatch(setLastimeLogin(datestring));
     navigation.navigate('DashBoard');
   };
 

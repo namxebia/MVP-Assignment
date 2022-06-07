@@ -9,12 +9,16 @@
  */
 
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {
+  createNativeStackNavigator,
+  NativeStackHeaderProps,
+} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
 import {Provider, useSelector} from 'react-redux';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 import {store} from './src/app/store';
+import HeaderNavigation from './src/organisms/HeaderNavigation';
 import Splash from './src/organisms/Splash';
 import DashBoard from './src/screens/DashBoard';
 import Login from './src/screens/Login';
@@ -42,7 +46,11 @@ const App = () => {
         <Stack.Navigator
           initialRouteName={deviceId ? 'Login' : 'Register'}
           screenOptions={{
-            headerShown: false,
+            headerShown: true,
+            headerTransparent: true,
+            header: ({route, navigation}: NativeStackHeaderProps) => (
+              <HeaderNavigation title={route.name} navigation={navigation} />
+            ),
           }}>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
