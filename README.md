@@ -10,6 +10,11 @@ cd MVP-Assignment/
 ```
 
 ## Step3: Installation:
+```
+npm install
+```
+## Step4: Run project:
+
 ### For android: 
 Make sure you run the android emulator already
 ```
