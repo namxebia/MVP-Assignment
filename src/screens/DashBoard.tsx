@@ -3,9 +3,9 @@ import React, {useEffect, useState} from 'react';
 import invoiceApi from '../api/invoiceApi';
 import {useAppSelector} from '../app/hooks';
 import {Invoice} from '../models';
-import DashBoardHeader from '../molecules/DashBoardHeader';
-import InvoiceList from '../molecules/InvoiceList';
-import Background from '../organisms/Background';
+import DashBoardHeader from '../components/molecules/DashBoardHeader';
+import InvoiceList from '../components/molecules/InvoiceList';
+import Background from '../components/organisms/Background';
 import {getLasttimeLogin, getUsername} from '../slices/authSlice';
 
 export default ({navigation}: {navigation: NavigationProp<any>}) => {

@@ -3,11 +3,11 @@ import React, {useState} from 'react';
 import {useForm} from 'react-hook-form';
 import {StyleSheet, View} from 'react-native';
 import * as yup from 'yup';
-import {useAppSelector} from '../app/hooks';
+import {useAppSelector} from '../../app/hooks';
 import ButtonSubmit from '../atoms/ButtonSubmit';
 import TextError from '../atoms/TextError';
 import TextInput from '../molecules/TextInput';
-import {getMpin} from '../slices/authSlice';
+import {getMpin} from '../../slices/authSlice';
 type LoginForm = {
   mpin: string;
 };

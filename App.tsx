@@ -17,7 +17,7 @@ import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 import {useAppSelector} from './src/app/hooks';
 import {store} from './src/app/store';
-import Splash from './src/organisms/Splash';
+import Splash from './src/components/organisms/Splash';
 import DashBoard from './src/screens/DashBoard';
 import Login from './src/screens/Login';
 import MPIN from './src/screens/MPIN';

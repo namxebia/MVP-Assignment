@@ -2,11 +2,11 @@ import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {useAppDispatch} from '../app/hooks';
-import Logo from '../atoms/Logo';
-import TextNavigation from '../atoms/TextNavigation';
-import Title from '../atoms/Title';
-import Background from '../organisms/Background';
-import LoginForm from '../organisms/LoginForm';
+import Logo from '../components/atoms/Logo';
+import TextNavigation from '../components/atoms/TextNavigation';
+import Title from '../components/atoms/Title';
+import Background from '../components/organisms/Background';
+import LoginForm from '../components/organisms/LoginForm';
 import {setLastimeLogin} from '../slices/authSlice';
 
 export default ({navigation}: {navigation: NavigationProp<any>}) => {

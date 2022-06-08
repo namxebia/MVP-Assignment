@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {Invoice} from '../models';
+import {Invoice} from '../../models';
 
 export default ({invoice}: {invoice: Invoice}) => {
   return (

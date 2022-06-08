@@ -2,11 +2,11 @@ import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {useAppDispatch} from '../app/hooks';
-import Logo from '../atoms/Logo';
-import TextNavigation from '../atoms/TextNavigation';
-import Header from '../atoms/Title';
-import Background from '../organisms/Background';
-import RegisterForm from '../organisms/RegisterForm';
+import Logo from '../components/atoms/Logo';
+import TextNavigation from '../components/atoms/TextNavigation';
+import Header from '../components/atoms/Title';
+import Background from '../components/organisms/Background';
+import RegisterForm from '../components/organisms/RegisterForm';
 import {setUsername} from '../slices/authSlice';
 export default ({navigation}: {navigation: NavigationProp<any>}) => {
   const dispatch = useAppDispatch();

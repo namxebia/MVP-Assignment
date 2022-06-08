@@ -6,7 +6,7 @@ export default () => {
     <Image
       style={styles.image}
       resizeMode={'stretch'}
-      source={require('../assets/imgs/logo.png')}
+      source={require('../../assets/imgs/logo.png')}
     />
   );
 };

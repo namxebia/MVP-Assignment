@@ -1,7 +1,7 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text} from 'react-native';
 import Row from '../atoms/Row';
-import {Invoice} from '../models';
+import {Invoice} from '../../models';
 type Props = {
   invoiceList: Invoice[];
   isLoading: boolean;
