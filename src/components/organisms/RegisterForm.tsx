@@ -1,6 +1,7 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
 import {useForm} from 'react-hook-form';
+import {useTranslation} from 'react-i18next';
 import {StyleSheet, View} from 'react-native';
 import * as yup from 'yup';
 import ButtonSubmit from '../atoms/ButtonSubmit';
@@ -29,6 +30,7 @@ export default ({
 }: {
   handleRegister: (data: {username: string}) => void;
 }) => {
+  const {t} = useTranslation();
   const {
     control,
     handleSubmit,
@@ -81,7 +83,7 @@ export default ({
         <TextError>{errors.confirmPassword?.message}</TextError>
       )}
 
-      <ButtonSubmit handleSubmit={handleSubmit(onSubmit)} title={'Submit'} />
+      <ButtonSubmit handleSubmit={handleSubmit(onSubmit)} title={t('submit')} />
     </View>
   );
 };

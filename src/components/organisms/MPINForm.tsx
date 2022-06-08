@@ -1,6 +1,7 @@
 import {yupResolver} from '@hookform/resolvers/yup';
 import React from 'react';
 import {useForm} from 'react-hook-form';
+import {useTranslation} from 'react-i18next';
 import {StyleSheet, View} from 'react-native';
 import * as yup from 'yup';
 import ButtonSubmit from '../atoms/ButtonSubmit';
@@ -21,6 +22,7 @@ const schema = yup.object({
 });
 
 export default ({handleMPIN}: {handleMPIN: (data: MPINForm) => void}) => {
+  const {t} = useTranslation();
   const {
     control,
     handleSubmit,
@@ -61,7 +63,7 @@ export default ({handleMPIN}: {handleMPIN: (data: MPINForm) => void}) => {
       {errors.confirmMpin && (
         <TextError>{errors.confirmMpin?.message}</TextError>
       )}
-      <ButtonSubmit handleSubmit={handleSubmit(onSubmit)} title={'Submit'} />
+      <ButtonSubmit handleSubmit={handleSubmit(onSubmit)} title={t('submit')} />
     </View>
   );
 };

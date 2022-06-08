@@ -1,0 +1,18 @@
+{
+    "translation":{
+        "welcomeBack":"Chào mừng trở lại",
+        "login": "Đăng nhập",
+        "gotoLogin": "Đi đến trang Đăng Nhập",
+        "register":"Đăng ký",
+        "MPIN":"Đăng ký MPIN",
+        "registerNewAccount": "Tạo tài khoản mới",
+        "submit":"Hoàn tất",
+        "dashboard": "Trang chủ",
+        "number":"Số",
+        "date":"Ngày",
+        "customerName":"Tên khách hàng",
+        "amountDetails":"Chi tiết số lượng",
+        "logout":"Đăng xuất"
+
+    }
+}

@@ -1,5 +1,6 @@
 import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {StyleSheet, View} from 'react-native';
 import {getDeviceId} from 'react-native-device-info';
 import {useAppDispatch} from '../app/hooks';
@@ -12,6 +13,7 @@ import {setDeviceId, setMpin} from '../slices/authSlice';
 
 export default ({navigation}: {navigation: NavigationProp<any>}) => {
   const dispatch = useAppDispatch();
+  const {t} = useTranslation();
 
   const handleMPIN = (data: {mpin: string; confirmMpin: string}) => {
     const deviceId = getDeviceId();
@@ -26,7 +28,7 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
       <View style={styles.logo}>
         <Logo />
       </View>
-      <Header>Register New Account</Header>
+      <Header>{t('MPIN')}</Header>
       <View style={styles.loginForm}>
         <MPINForm handleMPIN={handleMPIN} />
       </View>
@@ -34,7 +36,7 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
         onNavigation={() => {
           navigation.goBack();
         }}>
-        Go to Login
+        {t('gotoLogin')}
       </TextNavigation>
     </Background>
   );

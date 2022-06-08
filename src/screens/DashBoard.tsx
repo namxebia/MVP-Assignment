@@ -7,8 +7,10 @@ import DashBoardHeader from '../components/molecules/DashBoardHeader';
 import InvoiceList from '../components/molecules/InvoiceList';
 import Background from '../components/organisms/Background';
 import {getLasttimeLogin, getUsername} from '../slices/authSlice';
+import {useTranslation} from 'react-i18next';
 
 export default ({navigation}: {navigation: NavigationProp<any>}) => {
+  const {t} = useTranslation();
   const username = useAppSelector(getUsername);
   const lasttimeLogin = useAppSelector(getLasttimeLogin);
 
@@ -19,7 +21,6 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
       try {
         setIsLoading(true);
         const response = await invoiceApi.getAll();
-        console.log('response', response);
         setInvoiceList(response.data);
       } catch (error) {
         console.log('error', error);
@@ -28,7 +29,7 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
     })();
   }, []);
   return (
-    <Background navigation={navigation} name={'DashBoard'}>
+    <Background navigation={navigation} name={t('dashboard')}>
       <DashBoardHeader
         username={username || ''}
         lasttimeLogin={lasttimeLogin}

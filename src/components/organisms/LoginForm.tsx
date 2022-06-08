@@ -8,6 +8,7 @@ import ButtonSubmit from '../atoms/ButtonSubmit';
 import TextError from '../atoms/TextError';
 import TextInput from '../molecules/TextInput';
 import {getMpin} from '../../slices/authSlice';
+import {useTranslation} from 'react-i18next';
 type LoginForm = {
   mpin: string;
 };
@@ -19,6 +20,8 @@ const schema = yup
   .required();
 
 export default ({handleLogin}: {handleLogin: () => void}) => {
+  const {t} = useTranslation();
+
   const mpin = useAppSelector(getMpin);
   const [mpinError, setMpinError] = useState('');
 
@@ -38,7 +41,7 @@ export default ({handleLogin}: {handleLogin: () => void}) => {
       if (mpin === data.mpin) {
         handleLogin();
       } else {
-        setMpinError('Wrong MPIN.Please try again');
+        setMpinError(t('wrongMPIN'));
       }
     } catch (error) {
       console.log('error', error);
@@ -57,7 +60,7 @@ export default ({handleLogin}: {handleLogin: () => void}) => {
       {errors.mpin && <TextError>{errors.mpin?.message}</TextError>}
       {mpinError !== '' && <TextError>{mpinError}</TextError>}
 
-      <ButtonSubmit handleSubmit={handleSubmit(onSubmit)} title={'Submit'} />
+      <ButtonSubmit handleSubmit={handleSubmit(onSubmit)} title={t('submit')} />
     </View>
   );
 };

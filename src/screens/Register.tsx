@@ -1,5 +1,6 @@
 import {NavigationProp} from '@react-navigation/native';
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import {StyleSheet, View} from 'react-native';
 import {useAppDispatch} from '../app/hooks';
 import Logo from '../components/atoms/Logo';
@@ -9,6 +10,7 @@ import Background from '../components/organisms/Background';
 import RegisterForm from '../components/organisms/RegisterForm';
 import {setUsername} from '../slices/authSlice';
 export default ({navigation}: {navigation: NavigationProp<any>}) => {
+  const {t} = useTranslation();
   const dispatch = useAppDispatch();
 
   const handleRegister = (data: {username: string}) => {
@@ -21,7 +23,7 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
       <View style={styles.logo}>
         <Logo />
       </View>
-      <Header>Register New Account</Header>
+      <Header>{t('registerNewAccount')}</Header>
       <View style={styles.loginForm}>
         <RegisterForm handleRegister={handleRegister} />
       </View>
@@ -29,7 +31,7 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
         onNavigation={() => {
           navigation.goBack();
         }}>
-        Go to Login
+        {t('gotoLogin')}
       </TextNavigation>
     </Background>
   );

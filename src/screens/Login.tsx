@@ -8,9 +8,11 @@ import Title from '../components/atoms/Title';
 import Background from '../components/organisms/Background';
 import LoginForm from '../components/organisms/LoginForm';
 import {setLastimeLogin} from '../slices/authSlice';
+import {useTranslation} from 'react-i18next';
 
 export default ({navigation}: {navigation: NavigationProp<any>}) => {
   const dispatch = useAppDispatch();
+  const {t} = useTranslation();
 
   const handleLogin = () => {
     var d = new Date();
@@ -37,7 +39,7 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
       <View style={styles.logo}>
         <Logo />
       </View>
-      <Title>Welcome Back</Title>
+      <Title>{t('welcomeBack')}</Title>
       <View style={styles.loginForm}>
         <LoginForm handleLogin={handleLogin} />
       </View>
@@ -45,7 +47,7 @@ export default ({navigation}: {navigation: NavigationProp<any>}) => {
         onNavigation={() => {
           navigation.navigate('Register');
         }}>
-        Reister
+        {t('register')}
       </TextNavigation>
     </Background>
   );

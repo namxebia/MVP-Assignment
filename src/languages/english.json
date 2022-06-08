@@ -1,0 +1,17 @@
+{
+    "translation":{
+        "welcomeBack":"Welcome Back",
+        "login": "Login",
+        "gotoLogin": "Go to Login",
+        "register":"Register",
+        "MPIN":"Register MPIN",
+        "registerNewAccount": "Register New Account",
+        "submit":"Submit",
+        "dashboard": "Dashboard",
+        "number":"Number",
+        "date":"Date",
+        "customerName":"Customer Name",
+        "amountDetails":"Amount Details",
+        "logout":"Logout"
+    }
+}

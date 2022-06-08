@@ -2,19 +2,21 @@ import React from 'react';
 import {ScrollView, StyleSheet, Text} from 'react-native';
 import Row from '../atoms/Row';
 import {Invoice} from '../../models';
+import {useTranslation} from 'react-i18next';
 type Props = {
   invoiceList: Invoice[];
   isLoading: boolean;
 };
 export default ({invoiceList, isLoading}: Props) => {
+  const {t} = useTranslation();
   return (
     <ScrollView style={styles.container}>
       <Row
         invoice={{
-          number: 'Number',
-          date: 'Date',
-          customerName: 'Customer Name',
-          amountDetails: 'Amount Details',
+          number: t('number'),
+          date: t('date'),
+          customerName: t('customerName'),
+          amountDetails: t('amountDetails'),
         }}
       />
       {isLoading ? (
