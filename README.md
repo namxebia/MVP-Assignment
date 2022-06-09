@@ -1,4 +1,13 @@
 # MVP-Assignment
+## Brownie Points
+- [x] Typescript
+- [x] Fetch invoices list stubbed response using Heroku, Mockable.io or similar
+platforms
+- [ ] Storybook framework implementation
+- [x] Multilingual framework implementation for all the static labels and error
+messages
+- [ ] Dark / Light theme implementation with toggle button
+- [x] Atomic design pattern for component creation
 
 ## Step1: Clone project:
 ```
